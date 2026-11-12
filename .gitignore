@@ -1,0 +1,5 @@
+.env
+rapport_biat_*.pdf
+FinRAG_BIAT.ipynb
+.ipynb_checkpoints/
+__pycache__/
