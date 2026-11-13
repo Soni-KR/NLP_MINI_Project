@@ -1,0 +1,56 @@
+[
+  {
+    "question": "Quel est le produit net bancaire de la banque seule en 2021 ?",
+    "expected": "1 015,5 millions de dinars tunisiens [2021 p. 25].",
+    "evidence": [{"value": "1015.5", "pages": [[2021, 25], [2021, 28]]}]
+  },
+  {
+    "question": "Quel est le résultat net de la banque seule en 2023 ?",
+    "expected": "331,4 millions de dinars tunisiens [2023 p. 24].",
+    "evidence": [{"value": "331.4", "pages": [[2023, 24], [2023, 27]]}]
+  },
+  {
+    "question": "Quel est le total du bilan de la banque seule fin 2025 ?",
+    "expected": "26 607 millions de dinars tunisiens [2025 p. 25].",
+    "evidence": [{"value": "26607", "pages": [[2025, 25], [2025, 28]]}]
+  },
+  {
+    "question": "Combien d’agences compte la BIAT en 2021 ?",
+    "expected": "205 agences [2021 p. 6].",
+    "evidence": [{"value": "205", "pages": [[2021, 6], [2021, 66], [2021, 116]]}]
+  },
+  {
+    "question": "Combien de collaborateurs la BIAT comptait-elle en 2023 ?",
+    "expected": "2 130 collaborateurs [2023 p. 5].",
+    "evidence": [{"value": "2130", "pages": [[2023, 5], [2023, 95]]}]
+  },
+  {
+    "question": "Quels sont les dépôts de la clientèle à fin 2025 ?",
+    "expected": "22 291 millions de dinars tunisiens [2025 p. 26].",
+    "evidence": [{"value": "22291", "pages": [[2025, 21], [2025, 26]]}]
+  },
+  {
+    "question": "Quel est le résultat net consolidé du groupe BIAT en 2025 ?",
+    "expected": "467,1 millions de dinars tunisiens [2025 p. 43].",
+    "evidence": [{"value": "467.1", "pages": [[2025, 43]]}]
+  },
+  {
+    "question": "Compare le produit net bancaire de la banque seule en 2021, 2023 et 2025.",
+    "expected": "1 015,5 [2021 p. 25], 1 396,9 [2023 p. 23] et 1 594,8 [2025 p. 23], en millions de dinars tunisiens.",
+    "evidence": [
+      {"value": "1015.5", "pages": [[2021, 25], [2021, 28]]},
+      {"value": "1396.9", "pages": [[2023, 23], [2023, 27]]},
+      {"value": "1594.8", "pages": [[2025, 23], [2025, 27]]}
+    ]
+  },
+  {
+    "question": "Quel résultat net la BIAT a-t-elle effectivement réalisé en 2035 ?",
+    "expected": "Les rapports consultés ne permettent pas de répondre.",
+    "evidence": []
+  },
+  {
+    "question": "Quel était le coût de construction du télescope spatial James-Webb ?",
+    "expected": "Les rapports consultés ne permettent pas de répondre.",
+    "evidence": []
+  }
+]

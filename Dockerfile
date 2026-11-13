@@ -9,6 +9,6 @@ RUN python -m pip install --no-cache-dir --index-url https://download.pytorch.or
     && python -m pip install --no-cache-dir -r requirements.txt \
     && python -m pip check
 
-COPY finrag.py rapport_biat_2021.pdf rapport_biat_2023.pdf rapport_biat_2025.pdf ./
+COPY finrag.py evaluate.py test_cases.json rapport_biat_2021.pdf rapport_biat_2023.pdf rapport_biat_2025.pdf ./
 
 ENTRYPOINT ["python", "/app/finrag.py"]
