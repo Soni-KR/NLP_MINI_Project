@@ -16,6 +16,8 @@ REPORT_YEARS = (2021, 2023, 2025)
 YEAR_LIST = re.compile(r"\b20\d{2}(?:\s*(?:,|/|\bet\b|\band\b)\s*20\d{2})+\b", re.IGNORECASE)
 CITATION = re.compile(r"\[\d{4} p\. \d+\]")
 REFUSAL = "Les rapports consultés ne permettent pas de répondre."
+REFUSAL = "Les rapports consultés ne permettent pas de répondre."
+GENERATION_FAILURE = "La génération a échoué (modèle indisponible ou réponse vide). Réessayez dans quelques instants."
 EMBEDDING_MODEL = "intfloat/multilingual-e5-small"
 EMBEDDING_REVISION = "614241f622f53c4eeff9890bdc4f31cfecc418b3"
 PASSAGE_TOKENS = 384
@@ -23,6 +25,7 @@ OVERLAP_TOKENS = 48
 SENTENCE_BREAK = re.compile(r"\n[ \t]*\n+|(?<=[.!?])\s+(?=[A-ZÀ-ÖØ-Þ])")
 # Bump this when extraction, chunking, or the embedding input format changes.
 CACHE_VERSION = "blocks-and-tables-v2"
+#ANSWER_MODEL = "nvidia/nemotron-3.5-lightning:free"
 ANSWER_MODEL = "nvidia/nemotron-3.5-super-vl:free"
 FALLBACK_MODEL = "nvidia/nemotron-3.5-lightning:free"
 TEST_CASES_PATH = Path(__file__).with_name("test_cases.json")
@@ -274,9 +277,27 @@ def answer(question, hits, client):
     )
     reply = (response.choices[0].message.content or "").strip()
     cited = set(CITATION.findall(reply))
-    return reply if cited and cited <= {citation(hit) for hit in hits} else REFUSAL
+    allowed = {citation(hit) for hit in hits}
+    accepted = bool(cited) and cited <= allowed
+    used_fallback = response.model.split(":")[0] == FALLBACK_MODEL.split(":")[0]
 
+    if os.getenv("FINRAG_DEBUG"):
+        if not reply:
+            reason = "réponse vide"
+        elif REFUSAL in reply:
+            reason = "refus du modèle"
+        elif not cited:
+            reason = "rejet : aucune citation reconnue"
+        elif not cited <= allowed:
+            reason = f"rejet : citations hors contexte {sorted(cited - allowed)}"
+        else:
+            reason = "accepté"
+        print(f"[debug] modèle={response.model} | {reason}\n[debug] réponse brute : {reply}\n",
+              file=sys.stderr)
 
+    if not reply or (used_fallback and not accepted):
+        return GENERATION_FAILURE
+    return reply if accepted else REFUSAL
 def print_test_questions():
     print("Questions de test et réponses attendues\n")
     for number, case in enumerate(json.loads(TEST_CASES_PATH.read_text(encoding="utf-8")), 1):
