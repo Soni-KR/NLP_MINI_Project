@@ -52,5 +52,10 @@
     "question": "Quel était le coût de construction du télescope spatial James-Webb ?",
     "expected": "Les rapports consultés ne permettent pas de répondre.",
     "evidence": []
+  },
+    {
+    "question": "Quel était le résultat net de la BIAT en 2024 ?",
+    "expected": "357,8 millions de dinars tunisiens [2025 p. 27].",
+    "evidence": [{"value": "357.8", "pages": [[2025, 27], [2025, 24]]}]
   }
 ]
