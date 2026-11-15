@@ -57,5 +57,43 @@
     "question": "Quel était le résultat net de la BIAT en 2024 ?",
     "expected": "357,8 millions de dinars tunisiens [2025 p. 27].",
     "evidence": [{"value": "357.8", "pages": [[2025, 27], [2025, 24]]}]
+  },
+    {
+    "question": "Compare les résultats nets de la banque seule en 2021, 2023 et 2025.",
+    "expected": "266,8 [2021 p. 26], 331,4 [2023 p. 24] et 385,3 [2025 p. 24], en millions de dinars tunisiens.",
+    "evidence": [
+      {"value": "266.8", "pages": [[2021, 26]]},
+      {"value": "331.4", "pages": [[2023, 24], [2023, 27]]},
+      {"value": "385.3", "pages": [[2025, 24], [2025, 27]]}
+    ]
+  },
+  {
+    "question": "Compare le résultat net en 2021, 2023 et 2025.",
+    "expected": "266,8 [2021 p. 26], 331,4 [2023 p. 24] et 385,3 [2025 p. 24], en millions de dinars tunisiens.",
+    "evidence": [
+      {"value": "266.8", "pages": [[2021, 26]]},
+      {"value": "331.4", "pages": [[2023, 24], [2023, 27]]},
+      {"value": "385.3", "pages": [[2025, 24], [2025, 27]]}
+    ]
+  },
+  {
+    "question": "Quel résultat net la BIAT a-t-elle réalisé en 2027 ?",
+    "expected": "Les rapports consultés ne permettent pas de répondre.",
+    "evidence": []
+  },
+  {
+    "question": "Quel bénéfice net la banque a-t-elle dégagé en 2023 ?",
+    "expected": "331,4 millions de dinars tunisiens [2023 p. 24].",
+    "evidence": [{"value": "331.4", "pages": [[2023, 24], [2023, 27]]}]
+  },
+  {
+    "question": "À combien s'élève le PNB de la BIAT à fin 2025 ?",
+    "expected": "1 594,8 millions de dinars tunisiens [2025 p. 23].",
+    "evidence": [{"value": "1594.8", "pages": [[2025, 23], [2025, 27]]}]
+  },
+  {
+    "question": "Quel était le résultat net de la banque l'année précédant 2025 ?",
+    "expected": "357,8 millions de dinars tunisiens [2025 p. 27].",
+    "evidence": [{"value": "357.8", "pages": [[2025, 27], [2025, 24]]}]
   }
 ]
