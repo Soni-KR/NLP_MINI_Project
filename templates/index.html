@@ -3,81 +3,79 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FinRAG — Assistant BIAT</title>
+  <title>FinRAG · Assistant BIAT</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='vendor/dockbar-1.0.1.iife.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
 </head>
 <body>
   <main class="shell">
     <header class="hero">
-      <p class="eyebrow">BIAT · RAPPORTS FINANCIERS</p>
-      <h1>Fin<span>RAG</span></h1>
-      <p class="intro">Posez une question en français. Les réponses sont générées à partir des rapports BIAT et accompagnées de leurs sources.</p>
+      <div>
+        <h1 class="brand" aria-label="FinRAG">
+          <dock-wrapper id="title-dock" aria-hidden="true" size="66" max-scale="1.25" max-range="120" padding="0" gap="0" disabled>
+            <dock-item width="86"><span>Fin</span></dock-item>
+            <dock-item width="132"><span class="brand-accent">RAG</span></dock-item>
+          </dock-wrapper>
+        </h1>
+        <p class="intro" data-i18n="intro">Les rapports de gestion de la BIAT, avec les passages à l’appui.</p>
+        <p class="corpus" data-i18n="years">2021, 2023 et 2025</p>
+      </div>
+      <div class="preferences">
+        <fieldset id="language">
+          <legend data-i18n="language">Langue</legend>
+          <div class="segments">
+            <label><input type="radio" name="language" value="fr" aria-label="Français" checked><span>FR</span></label>
+            <label><input type="radio" name="language" value="en" aria-label="English"><span>EN</span></label>
+          </div>
+        </fieldset>
+        <fieldset id="theme">
+          <legend data-i18n="theme">Thème</legend>
+          <div class="segments">
+            <label><input type="radio" name="theme" value="light" checked><span data-i18n="light">Clair</span></label>
+            <label><input type="radio" name="theme" value="dark"><span data-i18n="dark">Sombre</span></label>
+          </div>
+        </fieldset>
+      </div>
     </header>
 
-    <section class="card">
-      <form id="question-form">
-        <label for="question">Votre question</label>
-        <textarea id="question" name="question" rows="3" required
-          placeholder="Ex. Quel était le résultat net de la BIAT en 2024 ?"></textarea>
-        <div class="form-footer">
-          <label class="top-k" for="top-k">Passages <select id="top-k"><option>3</option><option selected>5</option><option>10</option></select></label>
-          <button type="submit" id="submit">Interroger <span aria-hidden="true">→</span></button>
+    <form id="question-form" class="card" data-endpoint="{{ url_for('ask') }}">
+      <label for="question" data-i18n="question">Votre question</label>
+      <textarea id="question" name="question" rows="3" required
+        placeholder="Quel était le résultat net de la BIAT en 2024 ?"></textarea>
+      <div class="form-footer">
+        <div class="search-depth">
+          <label for="top-k" data-i18n="passages">Passages par rapport</label>
+          <select id="top-k" name="top-k">
+            <option value="3">3</option>
+            <option value="5" selected>5</option>
+            <option value="10">10</option>
+          </select>
         </div>
-      </form>
+        <button type="submit" id="submit" class="primary" data-i18n="submit">Interroger</button>
+      </div>
+    </form>
+
+    <section class="examples" aria-labelledby="examples-title">
+      <h2 id="examples-title" data-i18n="examples">Questions à essayer</h2>
+      <!-- Powered by CatsJuice/dockbar under the MIT License. -->
+      <dock-wrapper id="examples-dock" size="44" max-scale="1.25" max-range="135" padding="5" gap="6" disabled>
+        <dock-item width="86"><button type="button" data-example="income" data-i18n="incomeLabel">Résultat 2024</button></dock-item>
+        <dock-item width="92"><button type="button" data-example="comparison" data-i18n="comparisonLabel">Comparer le PNB</button></dock-item>
+        <dock-item width="86"><button type="button" data-example="employees" data-i18n="employeesLabel">Effectif 2023</button></dock-item>
+      </dock-wrapper>
     </section>
 
-    <section id="result" class="result" hidden aria-live="polite"></section>
-    <p class="disclaimer">Corpus : rapports de gestion BIAT 2021, 2023 et 2025. Les citations indiquent l'année du rapport et la page PDF.</p>
+    <p id="request-status" class="request-status" role="status"></p>
+    <section id="result" class="result card" aria-labelledby="result-title" hidden>
+      <h2 id="result-title" tabindex="-1"></h2>
+      <div id="answer" class="answer"></div>
+      <div id="sources" class="sources" hidden>
+        <h3 data-i18n="sources">Passages consultés</h3>
+        <p data-i18n="sourceNote">Les extraits restent en français. Les citations indiquent l’année du rapport et la page PDF.</p>
+        <div id="source-list"></div>
+      </div>
+    </section>
   </main>
-  <script>
-    const form = document.querySelector("#question-form");
-    const question = document.querySelector("#question");
-    const result = document.querySelector("#result");
-    const submit = document.querySelector("#submit");
-
-    function showResult(content, className) {
-      result.hidden = false;
-      result.className = `result ${className}`;
-      result.innerHTML = content;
-    }
-
-    function escapeHtml(value) {
-      return value.replace(/[&<>"']/g, character => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
-      }[character]));
-    }
-
-    form.addEventListener("submit", async event => {
-      event.preventDefault();
-      const value = question.value.trim();
-      if (!value) return;
-      submit.disabled = true;
-      submit.innerHTML = "Recherche <span class=\"spinner\" aria-hidden=\"true\"></span>";
-      showResult("<p class=\"loading\">Recherche dans les rapports…</p>", "loading-card");
-
-      try {
-        const response = await fetch("/api/ask", {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({question: value, top_k: Number(document.querySelector("#top-k").value)})
-        });
-        const contentType = response.headers.get("content-type") || "";
-        const data = contentType.includes("application/json")
-          ? await response.json()
-          : {error: `Le serveur a renvoyé une réponse inattendue (HTTP ${response.status}).`};
-        if (!response.ok) throw new Error(data.error || "Une erreur est survenue.");
-        const sources = data.sources.map(source =>
-          `<details><summary>${escapeHtml(source.citation)}</summary><p>${escapeHtml(source.text)}</p></details>`
-        ).join("");
-        const title = data.status === "answer" ? "Réponse" : data.status === "refusal" ? "Information indisponible" : "Échec de génération";
-        showResult(`<div class="result-heading"><span class="status-dot ${data.status}"></span><h2>${title}</h2></div><div class="answer">${escapeHtml(data.answer).replace(/\n/g, "<br>")}</div><div class="sources"><h3>Passages consultés</h3>${sources}</div>`, data.status);
-      } catch (error) {
-        showResult(`<div class="result-heading"><span class="status-dot failure"></span><h2>Impossible de répondre</h2></div><p>${escapeHtml(error.message)}</p>`, "failure");
-      } finally {
-        submit.disabled = false;
-        submit.innerHTML = "Interroger <span aria-hidden=\"true\">→</span>";
-      }
-    });
-  </script>
 </body>
 </html>

@@ -44,9 +44,14 @@ Open `http://127.0.0.1:5000`. The index is built lazily on the first question an
 subsequent requests. With the Docker image, use the existing image and replace its CLI entrypoint:
 
 ```powershell
-docker run --rm --env-file .env -p 5000:5000 -e FINRAG_HOST=0.0.0.0 `
+docker run --rm --env-file .env -p 127.0.0.1:5000:5000 -e FINRAG_HOST=0.0.0.0 `
   -v finrag-hf:/root/.cache/huggingface --entrypoint python finrag:local /app/app.py
 ```
+
+The language control switches the interface and generated answers between French and English.
+Source excerpts retain the original French, and clicking a citation opens its passage.
+Language and theme choices are saved in the browser. The title and question shortcuts use the
+locally bundled [Dockbar](https://github.com/CatsJuice/dockbar) component.
 
 If Anaconda reports that a module compiled with NumPy 1.x cannot run with NumPy 2.x, repair
 the environment with:
