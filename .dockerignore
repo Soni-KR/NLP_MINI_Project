@@ -2,8 +2,13 @@
 !Dockerfile
 !requirements.txt
 !finrag.py
+!app.py
 !evaluate.py
 !test_cases.json
+!templates/
+!templates/**
+!static/
+!static/**
 !rapport_biat_2021.pdf
 !rapport_biat_2023.pdf
 !rapport_biat_2025.pdf
