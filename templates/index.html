@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FinRAG — Assistant BIAT</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <p class="eyebrow">BIAT · RAPPORTS FINANCIERS</p>
+      <h1>Fin<span>RAG</span></h1>
+      <p class="intro">Posez une question en français. Les réponses sont générées à partir des rapports BIAT et accompagnées de leurs sources.</p>
+    </header>
+
+    <section class="card">
+      <form id="question-form">
+        <label for="question">Votre question</label>
+        <textarea id="question" name="question" rows="3" required
+          placeholder="Ex. Quel était le résultat net de la BIAT en 2024 ?"></textarea>
+        <div class="form-footer">
+          <label class="top-k" for="top-k">Passages <select id="top-k"><option>3</option><option selected>5</option><option>10</option></select></label>
+          <button type="submit" id="submit">Interroger <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+    </section>
+
+    <section id="result" class="result" hidden aria-live="polite"></section>
+    <p class="disclaimer">Corpus : rapports de gestion BIAT 2021, 2023 et 2025. Les citations indiquent l'année du rapport et la page PDF.</p>
+  </main>
+  <script>
+    const form = document.querySelector("#question-form");
+    const question = document.querySelector("#question");
+    const result = document.querySelector("#result");
+    const submit = document.querySelector("#submit");
+
+    function showResult(content, className) {
+      result.hidden = false;
+      result.className = `result ${className}`;
+      result.innerHTML = content;
+    }
+
+    function escapeHtml(value) {
+      return value.replace(/[&<>"']/g, character => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+      }[character]));
+    }
+
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      const value = question.value.trim();
+      if (!value) return;
+      submit.disabled = true;
+      submit.innerHTML = "Recherche <span class=\"spinner\" aria-hidden=\"true\"></span>";
+      showResult("<p class=\"loading\">Recherche dans les rapports…</p>", "loading-card");
+
+      try {
+        const response = await fetch("/api/ask", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({question: value, top_k: Number(document.querySelector("#top-k").value)})
+        });
+        const contentType = response.headers.get("content-type") || "";
+        const data = contentType.includes("application/json")
+          ? await response.json()
+          : {error: `Le serveur a renvoyé une réponse inattendue (HTTP ${response.status}).`};
+        if (!response.ok) throw new Error(data.error || "Une erreur est survenue.");
+        const sources = data.sources.map(source =>
+          `<details><summary>${escapeHtml(source.citation)}</summary><p>${escapeHtml(source.text)}</p></details>`
+        ).join("");
+        const title = data.status === "answer" ? "Réponse" : data.status === "refusal" ? "Information indisponible" : "Échec de génération";
+        showResult(`<div class="result-heading"><span class="status-dot ${data.status}"></span><h2>${title}</h2></div><div class="answer">${escapeHtml(data.answer).replace(/\n/g, "<br>")}</div><div class="sources"><h3>Passages consultés</h3>${sources}</div>`, data.status);
+      } catch (error) {
+        showResult(`<div class="result-heading"><span class="status-dot failure"></span><h2>Impossible de répondre</h2></div><p>${escapeHtml(error.message)}</p>`, "failure");
+      } finally {
+        submit.disabled = false;
+        submit.innerHTML = "Interroger <span aria-hidden=\"true\">→</span>";
+      }
+    });
+  </script>
+</body>
+</html>

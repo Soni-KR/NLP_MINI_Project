@@ -12,6 +12,10 @@ from pathlib import Path
 from zipfile import BadZipFile
 
 
+# FinRAG uses Sentence Transformers with PyTorch; prevent an installed
+# TensorFlow/Keras stack from being selected by Transformers.
+os.environ.setdefault("USE_TF", "0")
+
 REPORT_YEARS = (2021, 2023, 2025)
 YEAR_LIST = re.compile(r"\b20\d{2}(?:\s*(?:,|/|\bet\b|\band\b)\s*20\d{2})+\b", re.IGNORECASE)
 CITATION = re.compile(r"\[\d{4} p\. \d+\]")
@@ -250,6 +254,9 @@ def citation(passage):
 
 
 def make_client():
+    from dotenv import load_dotenv
+
+    load_dotenv(Path(__file__).with_name(".env"))
     key = os.getenv("OPENROUTER_API_KEY", "").strip()
     if key[:1] in ("'", '"') and key[-1:] == key[:1]:
         key = key[1:-1].strip()

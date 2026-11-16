@@ -4,7 +4,7 @@ FinRAG answers questions in French using BIAT's 2021, 2023 and 2025 management r
 
 1. Clone the GitHub repository and open its root folder, where `Dockerfile` and `finrag.py` are located.
 2. Put the three PDFs from the handoff archive in that folder. Keep the filenames below. The PDFs are excluded from Git, and the Docker build requires all three. The archive contains the exact copies used for evaluation. [Private Kaggle dataset, if you have access](https://www.kaggle.com/datasets/mouradkraiem/finrag-biat-reports)
-3. Start Docker. For answer generation, copy `.env.example` to `.env` and set `OPENROUTER_API_KEY` to your own key without quotes. Keep `.env` local. The first build and model download need internet access.
+3. Start Docker. For answer generation, copy `.env.example` to `.env` and set `OPENROUTER_API_KEY` to your own key without quotes. Keep `.env` local. The Python web app loads this `.env` file automatically. The first build and model download need internet access.
 
 | File | PDF pages |
 |---|---:|
@@ -29,6 +29,33 @@ docker run --rm -v finrag-hf:/root/.cache/huggingface --entrypoint python finrag
 # Also check generated values, citations and refusals at k=5
 docker run --rm --env-file .env -v finrag-hf:/root/.cache/huggingface --entrypoint python finrag:local /app/evaluate.py --generate
 ```
+
+## Interface web
+
+The browser interface uses the same retrieval and generation pipeline as the CLI. Install the
+requirements, set `OPENROUTER_API_KEY`, then start the server from the repository root:
+
+```powershell
+python -m pip install -r requirements.txt
+python app.py
+```
+
+Open `http://127.0.0.1:5000`. The index is built lazily on the first question and reused for
+subsequent requests. With the Docker image, use the existing image and replace its CLI entrypoint:
+
+```powershell
+docker run --rm --env-file .env -p 5000:5000 -e FINRAG_HOST=0.0.0.0 `
+  -v finrag-hf:/root/.cache/huggingface --entrypoint python finrag:local /app/app.py
+```
+
+If Anaconda reports that a module compiled with NumPy 1.x cannot run with NumPy 2.x, repair
+the environment with:
+
+```powershell
+python -m pip install --force-reinstall -r requirements.txt
+```
+
+FinRAG forces Transformers to use PyTorch, so TensorFlow/Keras is not required.
 
 The `finrag-hf` volume saves the embedding model and passage embeddings for later runs. Citations such as `[2025 p. 27]` refer to the report year and the one-based position in that PDF. The year discussed in the passage can be earlier.
 
