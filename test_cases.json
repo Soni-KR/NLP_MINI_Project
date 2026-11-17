@@ -2,45 +2,53 @@
   {
     "question": "Quel est le produit net bancaire de la banque seule en 2021 ?",
     "expected": "1 015,5 millions de dinars tunisiens [2021 p. 25].",
-    "evidence": [{"value": "1015.5", "pages": [[2021, 25], [2021, 28]]}]
+    "unit": "million_tnd",
+    "evidence": [{"value": "1015.5", "pages": [[2021, 25], [2021, 28]], "fiscal_year": 2021}]
   },
   {
     "question": "Quel est le résultat net de la banque seule en 2023 ?",
     "expected": "331,4 millions de dinars tunisiens [2023 p. 24].",
-    "evidence": [{"value": "331.4", "pages": [[2023, 24], [2023, 27]]}]
+    "unit": "million_tnd",
+    "evidence": [{"value": "331.4", "pages": [[2023, 24], [2023, 27]], "fiscal_year": 2023}]
   },
   {
     "question": "Quel est le total du bilan de la banque seule fin 2025 ?",
     "expected": "26 607 millions de dinars tunisiens [2025 p. 25].",
-    "evidence": [{"value": "26607", "pages": [[2025, 25], [2025, 28]]}]
+    "unit": "million_tnd",
+    "evidence": [{"value": "26607", "pages": [[2025, 25], [2025, 28]], "fiscal_year": 2025}]
   },
   {
     "question": "Combien d’agences compte la BIAT en 2021 ?",
     "expected": "205 agences [2021 p. 6].",
-    "evidence": [{"value": "205", "pages": [[2021, 6], [2021, 66], [2021, 116]]}]
+    "unit": "branches",
+    "evidence": [{"value": "205", "pages": [[2021, 6], [2021, 66], [2021, 116]], "fiscal_year": 2021}]
   },
   {
     "question": "Combien de collaborateurs la BIAT comptait-elle en 2023 ?",
     "expected": "2 130 collaborateurs [2023 p. 5].",
-    "evidence": [{"value": "2130", "pages": [[2023, 5], [2023, 95]]}]
+    "unit": "people",
+    "evidence": [{"value": "2130", "pages": [[2023, 5], [2023, 95]], "fiscal_year": 2023}]
   },
   {
     "question": "Quels sont les dépôts de la clientèle à fin 2025 ?",
     "expected": "22 291 millions de dinars tunisiens [2025 p. 26].",
-    "evidence": [{"value": "22291", "pages": [[2025, 21], [2025, 26]]}]
+    "unit": "million_tnd",
+    "evidence": [{"value": "22291", "pages": [[2025, 21], [2025, 26]], "fiscal_year": 2025}]
   },
   {
     "question": "Quel est le résultat net consolidé du groupe BIAT en 2025 ?",
     "expected": "467,1 millions de dinars tunisiens [2025 p. 43].",
-    "evidence": [{"value": "467.1", "pages": [[2025, 43]]}]
+    "unit": "million_tnd",
+    "evidence": [{"value": "467.1", "pages": [[2025, 43]], "fiscal_year": 2025}]
   },
   {
     "question": "Compare le produit net bancaire de la banque seule en 2021, 2023 et 2025.",
     "expected": "1 015,5 [2021 p. 25], 1 396,9 [2023 p. 23] et 1 594,8 [2025 p. 23], en millions de dinars tunisiens.",
+    "unit": "million_tnd",
     "evidence": [
-      {"value": "1015.5", "pages": [[2021, 25], [2021, 28]]},
-      {"value": "1396.9", "pages": [[2023, 23], [2023, 27]]},
-      {"value": "1594.8", "pages": [[2025, 23], [2025, 27]]}
+      {"value": "1015.5", "pages": [[2021, 25], [2021, 28]], "fiscal_year": 2021},
+      {"value": "1396.9", "pages": [[2023, 23], [2023, 27]], "fiscal_year": 2023},
+      {"value": "1594.8", "pages": [[2025, 23], [2025, 27]], "fiscal_year": 2025}
     ]
   },
   {
@@ -56,24 +64,27 @@
     {
     "question": "Quel était le résultat net de la BIAT en 2024 ?",
     "expected": "357,8 millions de dinars tunisiens [2025 p. 27].",
-    "evidence": [{"value": "357.8", "pages": [[2025, 27], [2025, 24]]}]
+    "unit": "million_tnd",
+    "evidence": [{"value": "357.8", "pages": [[2025, 27], [2025, 24]], "fiscal_year": 2024}]
   },
     {
     "question": "Compare les résultats nets de la banque seule en 2021, 2023 et 2025.",
     "expected": "266,8 [2021 p. 26], 331,4 [2023 p. 24] et 385,3 [2025 p. 24], en millions de dinars tunisiens.",
+    "unit": "million_tnd",
     "evidence": [
-      {"value": "266.8", "pages": [[2021, 26]]},
-      {"value": "331.4", "pages": [[2023, 24], [2023, 27]]},
-      {"value": "385.3", "pages": [[2025, 24], [2025, 27]]}
+      {"value": "266.8", "pages": [[2021, 26], [2021, 28]], "fiscal_year": 2021},
+      {"value": "331.4", "pages": [[2023, 24], [2023, 27]], "fiscal_year": 2023},
+      {"value": "385.3", "pages": [[2025, 24], [2025, 27]], "fiscal_year": 2025}
     ]
   },
   {
     "question": "Compare le résultat net en 2021, 2023 et 2025.",
     "expected": "266,8 [2021 p. 26], 331,4 [2023 p. 24] et 385,3 [2025 p. 24], en millions de dinars tunisiens.",
+    "unit": "million_tnd",
     "evidence": [
-      {"value": "266.8", "pages": [[2021, 26]]},
-      {"value": "331.4", "pages": [[2023, 24], [2023, 27]]},
-      {"value": "385.3", "pages": [[2025, 24], [2025, 27]]}
+      {"value": "266.8", "pages": [[2021, 26], [2021, 28]], "fiscal_year": 2021},
+      {"value": "331.4", "pages": [[2023, 24], [2023, 27]], "fiscal_year": 2023},
+      {"value": "385.3", "pages": [[2025, 24], [2025, 27]], "fiscal_year": 2025}
     ]
   },
   {
@@ -84,16 +95,77 @@
   {
     "question": "Quel bénéfice net la banque a-t-elle dégagé en 2023 ?",
     "expected": "331,4 millions de dinars tunisiens [2023 p. 24].",
-    "evidence": [{"value": "331.4", "pages": [[2023, 24], [2023, 27]]}]
+    "unit": "million_tnd",
+    "evidence": [{"value": "331.4", "pages": [[2023, 24], [2023, 27]], "fiscal_year": 2023}]
   },
   {
     "question": "À combien s'élève le PNB de la BIAT à fin 2025 ?",
     "expected": "1 594,8 millions de dinars tunisiens [2025 p. 23].",
-    "evidence": [{"value": "1594.8", "pages": [[2025, 23], [2025, 27]]}]
+    "unit": "million_tnd",
+    "evidence": [{"value": "1594.8", "pages": [[2025, 23], [2025, 27]], "fiscal_year": 2025}]
   },
   {
     "question": "Quel était le résultat net de la banque l'année précédant 2025 ?",
     "expected": "357,8 millions de dinars tunisiens [2025 p. 27].",
-    "evidence": [{"value": "357.8", "pages": [[2025, 27], [2025, 24]]}]
+    "unit": "million_tnd",
+    "evidence": [{"value": "357.8", "pages": [[2025, 27], [2025, 24]], "fiscal_year": 2024}]
+  },
+  {
+    "question": "À combien s’est établi le résultat net de la BIAT pour l’exercice 2024 ?",
+    "expected": "357,8 millions de dinars tunisiens [2025 p. 27].",
+    "unit": "million_tnd",
+    "evidence": [{"value": "357.8", "pages": [[2025, 27], [2025, 24]], "fiscal_year": 2024}]
+  },
+  {
+    "question": "Compare le résultat net de la banque seule pour les exercices 2023 et 2024.",
+    "expected": "2023 : 331,4 MD [2023 p. 24]. 2024 : 357,8 MD [2025 p. 27].",
+    "unit": "million_tnd",
+    "evidence": [
+      {"value": "331.4", "pages": [[2023, 24], [2023, 27]], "fiscal_year": 2023},
+      {"value": "357.8", "pages": [[2025, 24], [2025, 27], [2025, 29]], "fiscal_year": 2024}
+    ]
+  },
+  {
+    "question": "À combien s’élèvent les créances nettes sur la clientèle de la BIAT seule à fin 2025 ?",
+    "expected": "13 045 millions de dinars tunisiens [2025 p. 26].",
+    "unit": "million_tnd",
+    "evidence": [{"value": "13045", "pages": [[2025, 26], [2025, 22]], "fiscal_year": 2025}]
+  },
+  {
+    "question": "Quel est le produit net bancaire consolidé du groupe BIAT en 2025 ?",
+    "expected": "1 939 millions de dinars tunisiens [2025 p. 43].",
+    "unit": "million_tnd",
+    "evidence": [{"value": "1939", "pages": [[2025, 43]], "fiscal_year": 2025}]
+  },
+  {
+    "question": "Compare les ratios Tier 1 de la BIAT en 2021, 2023 et 2025 à partir du rapport publié pour chaque exercice.",
+    "expected": "2021 : 10,64 % [2021 p. 30]. 2023 : 10,59 % [2023 p. 29]. 2025 : 10,50 % [2025 p. 29].",
+    "unit": "percent",
+    "evidence": [
+      {"value": "10.64", "pages": [[2021, 30]], "fiscal_year": 2021},
+      {"value": "10.59", "pages": [[2023, 29]], "fiscal_year": 2023},
+      {"value": "10.50", "pages": [[2025, 29]], "fiscal_year": 2025}
+    ]
+  },
+  {
+    "question": "Quel est le montant des capitaux propres de la banque seule à fin 2025 ?",
+    "expected": "2 368 millions de dinars tunisiens [2025 p. 25].",
+    "unit": "million_tnd",
+    "evidence": [{"value": "2368", "pages": [[2025, 25], [2025, 29]], "fiscal_year": 2025}]
+  },
+  {
+    "question": "Dans quelle ville de Libye la BIAT dispose-t-elle d’une représentation selon son rapport 2025 ?",
+    "expected": "Tripoli [2025 p. 5].",
+    "evidence": [{"text": "Tripoli", "pages": [[2025, 5]], "fiscal_year": 2025}]
+  },
+  {
+    "question": "Combien d’agences bancaires la BIAT avait-elle en Libye en 2025 ?",
+    "expected": "Les rapports consultés ne permettent pas de répondre.",
+    "evidence": []
+  },
+  {
+    "question": "Combien de planètes compte le système solaire ?",
+    "expected": "Les rapports consultés ne permettent pas de répondre.",
+    "evidence": []
   }
 ]

@@ -1,0 +1,63 @@
+[
+  {
+    "question": "En milliers de dinars tunisiens, quel est le résultat net de la BIAT seule pour l’exercice 2020 ?",
+    "expected": "Le résultat net de la banque seule pour 2020 s’élève à 281 842 milliers de dinars tunisiens [2021 p. 181].",
+    "unit": "thousand_tnd",
+    "evidence": [{"value": "281842", "pages": [[2021, 181]], "fiscal_year": 2020}]
+  },
+  {
+    "question": "À quel niveau s’établit le coefficient d’exploitation de la BIAT en 2021 ?",
+    "expected": "44,3 % [2021 p. 26].",
+    "unit": "percent",
+    "evidence": [{"value": "44.3", "pages": [[2021, 26]], "fiscal_year": 2021}]
+  },
+  {
+    "question": "Quelle part du total des dépôts de la BIAT les dépôts à vue représentent-ils à fin 2025 ?",
+    "expected": "48 % du total des dépôts [2025 p. 21].",
+    "unit": "percent",
+    "evidence": [{"value": "48", "pages": [[2025, 21]], "fiscal_year": 2025}]
+  },
+  {
+    "question": "Quel montant atteint la marge en intérêts de la banque seule en 2023 ?",
+    "expected": "659,7 millions de dinars tunisiens [2023 p. 23].",
+    "unit": "million_tnd",
+    "evidence": [{"value": "659.7", "pages": [[2023, 23]], "fiscal_year": 2023}]
+  },
+  {
+    "question": "À combien s’élève la marge sur commissions de la banque seule pour l’exercice 2025 ?",
+    "expected": "287,0 millions de dinars tunisiens [2025 p. 23].",
+    "unit": "million_tnd",
+    "evidence": [{"value": "287.0", "pages": [[2025, 23]], "fiscal_year": 2025}]
+  },
+  {
+    "question": "Quel est le montant des frais d’exploitation de la BIAT seule en 2025 ?",
+    "expected": "711,1 millions de dinars tunisiens [2025 p. 24].",
+    "unit": "million_tnd",
+    "evidence": [{"value": "711.1", "pages": [[2025, 24]], "fiscal_year": 2025}]
+  },
+  {
+    "question": "Compare le volume des engagements par signature en faveur de la clientèle en 2023 et en 2025.",
+    "expected": "En 2023, 2 865 millions de dinars tunisiens [2023 p. 22]. En 2025, 3 203 millions de dinars tunisiens [2025 p. 22].",
+    "unit": "million_tnd",
+    "evidence": [
+      {"value": "2865", "pages": [[2023, 22], [2025, 22]], "fiscal_year": 2023},
+      {"value": "3203", "pages": [[2025, 22]], "fiscal_year": 2025}
+    ]
+  },
+  {
+    "question": "Quelle est la proportion de femmes dans l’effectif de la BIAT en 2023 ?",
+    "expected": "44 % de l’effectif [2023 p. 95].",
+    "unit": "percent",
+    "evidence": [{"value": "44", "pages": [[2023, 95]], "fiscal_year": 2023}]
+  },
+  {
+    "question": "Quel produit net bancaire la BIAT a-t-elle effectivement réalisé au titre de l’exercice 2032 ?",
+    "expected": "Les rapports consultés ne permettent pas de répondre.",
+    "evidence": []
+  },
+  {
+    "question": "Quelle est l’altitude du mont Everest en mètres ?",
+    "expected": "Les rapports consultés ne permettent pas de répondre.",
+    "evidence": []
+  }
+]

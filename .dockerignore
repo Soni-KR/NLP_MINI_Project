@@ -5,6 +5,7 @@
 !app.py
 !evaluate.py
 !test_cases.json
+!test_unseen.json
 !templates/
 !templates/**
 !static/

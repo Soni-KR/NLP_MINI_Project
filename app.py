@@ -108,8 +108,22 @@ def ask():
     except APIError as error:
         status_code = getattr(error, "status_code", None)
         if status_code == 429:
-            return error_response(502, "La limite OpenRouter est atteinte. Réessayez plus tard.",
-                                  "OpenRouter's rate limit was reached. Try again later.")
+            details = error.body if isinstance(error.body, dict) else {}
+            if isinstance(details.get("error"), dict):
+                details = details["error"]
+            metadata = details.get("metadata")
+            daily_limit = (isinstance(metadata, dict)
+                           and metadata.get("limit_source") == "openrouter_free_tier_daily")
+            if daily_limit or "free-models-per-day" in str(details.get("message", "")):
+                return error_response(
+                    502, "Le quota quotidien gratuit de votre compte OpenRouter est épuisé. "
+                    "Attendez sa réinitialisation ou augmentez votre quota dans OpenRouter.",
+                    "Your OpenRouter account's daily free-model quota is exhausted. "
+                    "Wait for its daily reset or increase your quota in OpenRouter.",
+                )
+            return error_response(502, "OpenRouter applique une limite temporaire de requêtes. "
+                                  "Réessayez dans quelques instants.",
+                                  "OpenRouter is temporarily limiting requests. Try again shortly.")
         if status_code and 400 <= status_code < 500:
             return error_response(502, f"OpenRouter a refusé la requête (HTTP {status_code}). "
                                   "Vérifiez le modèle et la clé API.",
